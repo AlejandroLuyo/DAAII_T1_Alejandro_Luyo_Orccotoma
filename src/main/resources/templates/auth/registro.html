@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de Usuario</title>
+    <link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet">
+    <script th:src="@{/js/bootstrap/bootstrap.bundle.js}" type="text/javascript"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .card {
+            width: 100%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+<div class="card shadow">
+    <div class="card-header text-bg-dark text-center">
+        REGISTRO DE USUARIO
+    </div>
+    <div class="card-body">
+        <form th:action="@{/auth/registro}" th:object="${usuario}" method="post">
+            <div class="form-floating mb-3">
+                <input th:field="*{nomusuario}" type="text" class="form-control" id="nomusuario" name="nomusuario" placeholder="Usuario">
+                <label for="nomusuario">Usuario</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input th:field="*{nombres}" type="text" class="form-control" id="nombres" name="nombres" placeholder="Nombres">
+                <label for="nombres">Nombre</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input th:field="*{apellidos}" type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Apellidos">
+                <label for="apellidos">Apellido</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input th:field="*{password}" type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                <label for="password">Contraseña</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input th:field="*{email}" type="email" class="form-control" id="email" name="email" placeholder="Email">
+                <label for="email">Email</label>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a th:href="@{/auth/login}" class="btn btn-secondary">Volver al Login</a>
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
