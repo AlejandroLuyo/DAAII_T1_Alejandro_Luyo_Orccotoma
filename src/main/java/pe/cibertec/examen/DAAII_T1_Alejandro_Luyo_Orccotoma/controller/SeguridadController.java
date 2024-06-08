@@ -31,13 +31,13 @@ public class SeguridadController {
             @RequestParam("confirmNewPassword") String confirmNewPassword,
             RedirectAttributes redirectAttributes) {
 
-        if (!validarPassword(newPassword)) {
-            redirectAttributes.addFlashAttribute("error", "La contraseña debe ser de mínimo 8 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial");
+        if (!validacion(newPassword)) {
+            redirectAttributes.addFlashAttribute("error", "La contraseña requiere un mínimo de 8 caracteres e incluir al menos una mayúscula, una minúscula, un número y un símbolo especial.");
             return "redirect:/seguridad/cambiarpw";
         }
 
         if (!newPassword.equals(confirmNewPassword)) {
-            redirectAttributes.addFlashAttribute("error", "Las contraseñas no coinciden");
+            redirectAttributes.addFlashAttribute("error", "Error: Las contraseñas no coinciden, ingreselas nuevamente");
             return "redirect:/seguridad/cambiarpw";
         }
 
@@ -50,11 +50,11 @@ public class SeguridadController {
         usuario.setPassword(encodedPassword);
         usuarioService.actualizarUsuario(usuario);
 
-        redirectAttributes.addFlashAttribute("success", "Contraseña actualizada correctamente");
-        return "redirect:/seguridad/cambiar-password";
+        redirectAttributes.addFlashAttribute("success", "Tu contraseña ha sido actualizada");
+        return "redirect:/seguridad/cambiarpw";
     }
 
-    private boolean validarPassword(String password) {
+    private boolean validacion(String password) {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[^\\da-zA-Z]).{8,}$";
         return password.matches(passwordRegex);
     }

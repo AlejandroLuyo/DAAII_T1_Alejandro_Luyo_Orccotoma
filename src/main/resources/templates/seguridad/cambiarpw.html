@@ -8,25 +8,31 @@
     <script th:src="@{/js/jquery/jquery.js}" type="text/javascript"></script>
 </head>
 <body>
-<nav th:replace="layout::menu"></nav>
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Crea tu nueva contraseña</h2>
-    <div th:if="${success}" class="alert alert-success" role="alert" th:text="${success}"></div>
-    <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}"></div>
-    <form th:action="@{/password-change}" method="post" id="passwordForm" onsubmit="return handleSubmit(event);">
-        <div class="mb-3">
-            <label for="newPassword" class="form-label">Nueva Contraseña</label>
-            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+    <nav th:replace="~{layout::menu}"></nav>
+        <div class="container mt-5">
+            <h2 class="text-center">Crea tu nueva contraseña</h2>
+            <div th:if="${success}" class="alert alert-success" role="alert">
+                <p th:text="${success}"></p>
+            </div>
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+                <p th:text="${error}"></p>
+            </div>
+            <form action="#" method="post" id="passwordForm">
+                <div class="form-group">
+                    <label for="newPassword">Ingresa una nueva Contraseña</label>
+                    <input type="password" class="form-control" id="newPassword" name="newPassword" th:required="required">
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirma tu nueva contraseña</label>
+                    <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" th:required="required">
+                </div>
+                <div class="d-grid gap-2">
+                    <a class="btn btn-secondary" th:href="@{/auth/dashboard}">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="confirmNewPassword" class="form-label">Confirma tu Nueva Contraseña</label>
-            <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required>
-        </div>
-        <div class="d-grid gap-2">
-            <button type="button" class="btn btn-secondary" id="cancelarBtn">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-    </form>
+    </div>
 </div>
 
 <script>
@@ -36,12 +42,12 @@
             const confirmNewPassword = document.getElementById('confirmNewPassword').value;
 
             if (!validatePassword(newPassword)) {
-                alert('La contraseña debe ser de mínimo 8 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un carácter especial');
+                alert('La contraseña requiere un mínimo de 8 caracteres e incluir al menos una mayúscula, una minúscula, un número y un símbolo especial.');
                 return;
             }
 
             if (newPassword !== confirmNewPassword) {
-                alert('Las contraseñas no coinciden');
+                alert('Error: las contraseñas no coinciden');
                 return;
             }
 
